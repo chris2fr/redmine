@@ -18,6 +18,16 @@ module RedmineApp
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/lib)
 
+    # Earger load code for threadsafe mode
+    config.eager_load_paths += ["#{config.root}/lib"]
+    config.eager_load_paths += ["#{config.root}/plugins"]
+  
+    # Enable threaded mode
+    config.threadsafe!
+  
+    # Allow rake tasks to autoload models in thread safe mode, more info at http://stackoverflow.com/a/4880253
+    config.dependency_loading = true if $rails_rake_task
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
